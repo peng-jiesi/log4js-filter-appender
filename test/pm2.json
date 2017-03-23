@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "Test1",
+      "script": "./test/test.js",
+      "instances": 2,
+      "exec_mode": "cluster"
+    },
+    {
+      "name": "Test2",
+      "script": "./test/test2.js",
+      "instances": 2,
+      "exec_mode": "cluster"
+    }
+  ]
+}

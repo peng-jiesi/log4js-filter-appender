@@ -1,0 +1,14 @@
+{
+  "globalstrict": true,
+  "node": true,
+  "mocha": true,
+  "esnext": true,
+  "globals": {
+    "require": false,
+    "console": false,
+    "Promise": false,
+    "__filename": false,
+    "describe": false,
+    "it": false
+  }
+}
