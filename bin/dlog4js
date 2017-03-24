@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * log4jsExt cli
  * Created by pengj on 2017-3-23.
@@ -5,7 +6,7 @@
 'use strict';
 const program = require('commander');
 const pkg = require('../package.json');
-const pm2Cmd = require('./pm2/PM2Command');
+const pm2Cmd = require('./../libs/pm2/PM2Command');
 
 program.version(pkg.version)
         .option('-p --pid [n]', 'pm2 process id')
