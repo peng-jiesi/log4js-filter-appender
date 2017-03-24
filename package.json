@@ -1,6 +1,6 @@
 {
   "name": "log4js-filter-appender",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "based on log4js and pm2, filter log by word,level,category",
   "main": "libs/log4js/FilterAppender.js",
   "scripts": {
