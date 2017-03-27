@@ -76,12 +76,10 @@ log4js.configure({
   Options:
 
     -h, --help             output usage information
-    -i --pid [n]           pm2 process id
-    -n --pname [value]     pm2 process name
     -l --level [value]     log level
     -c --category [value]  log category
-    -f --filter [value]    filter log by this value, can be regular. ps: (test)|(info)
-    
+    -w --word [value]    filter log by this value, can be regular. ps: (test)|(info)
+    -f --force [boolean] focre change logger level, true or false
     
   change  pm2 process '0' log level to info
   > dlog4js start -p 0 -l info 

@@ -93,13 +93,14 @@ function send(processid, processname, data) {
     });
 }
 
-function start(pid, pname, filter, catalog, level) {
+function start(pid, pname, filter, category, level, forceLevel) {
     send(pid, pname, {
         method: 'startFilter',
         params: {
-            catalog: catalog,
+            category: category,
             level: level,
-            filter: filter
+            filter: filter,
+            forceLevel: forceLevel
         }
     });
 }

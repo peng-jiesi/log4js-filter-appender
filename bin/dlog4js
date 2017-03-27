@@ -13,13 +13,13 @@ program.version(pkg.version)
 
 program.command('start')
         .description('enable FilterAppender for log4js')
-        .option('-i --pid [n]', 'pm2 process id')
-        .option('-n --pname [value]', 'pm2 process name')
         .option('-l --level [value]', 'log level', /^(TRACE|DEBUG|INFO|WARN|ERROR)$/i, 'INFO')
         .option('-c --category [value]', 'log category')
-        .option('-f --filter [value]', 'filter log by this value, can be regular. ps: (test)|(info)')
+        .option('-w --word [value]', 'filter log by this value, can be regular. ps: (test)|(info)')
+        .option('-f --force [boolean]', 'focre change logger level', /^(true|false)$/i, false)
         .action(function (env) {
-            pm2Cmd.start(program.pid, program.pname, env.filter, env.category, env.level);
+            let force = env.force && env.force.toLowerCase() === 'true';
+            pm2Cmd.start(program.pid, program.pname, env.word, env.category, env.level, force);
         });
 
 program.command('stop')

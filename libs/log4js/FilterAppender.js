@@ -28,6 +28,8 @@ class AppenderFilter {
         this.level = levels.toLevel('info');
         this.filter = undefined;
         this.category = undefined;
+        this.orgLevel = undefined;
+        this.isForceChanged = false;
     }
 
 
@@ -57,20 +59,60 @@ class AppenderFilter {
     }
 
     isEnable(loggingEvent) {
-        return this.enable && this.isEnableCategory(loggingEvent.category) && this.isEnableLevel(loggingEvent.level) && this.isEnableFilter(loggingEvent.data);
+        return this.enable && this.isEnableCategory(loggingEvent.categoryName) && this.isEnableLevel(loggingEvent.level) && this.isEnableFilter(loggingEvent.data);
     }
 
     startFilter(config) {
-        Object.assign(this, config);
+        this.category = config.category;
+
         if (this.filter) {
             this.filter = new RegExp(this.filter);
         }
+
+        this.level = config.level;
+        if (this.level && config.forceLevel) {
+            this.changeLevel();
+        }
+
         this.enable = true;
-        console.log('switch filter, filter: %s\tlevel:%s\tcategory:%s', this.filter, this.level, this.category);
+        console.log('switch filter, filter: %s\tlevel:%s\tcategory:%s\tforceLevel:%s', this.filter, this.level, this.category, config.forceLevel);
     }
+
+    changeLevel() {
+        this.recoverLevel();
+
+        if (this.category) {
+            let logger = log4js.getLogger(this.category);
+            if (!logger.isLevelEnabled(this.level)) {
+                if (logger.hasOwnProperty('level')) {
+                    this.orgLevel = logger.level;
+                }
+                logger.setLevel(this.level);
+                this.isForceChanged = true;
+            }
+        }
+    }
+
+
+    recoverLevel() {
+        if (this.category && this.isForceChanged) {
+            let logger = log4js.getLogger(this.category);
+            if (this.orgLevel) {
+                logger.setLevel(this.orgLevel);
+                this.orgLevel = undefined;
+            } else {
+                logger.removeLevel();
+            }
+            this.isForceChanged = false;
+        }
+    }
+
 
     stopFilter() {
         this.enable = false;
+
+        this.recoverLevel();
+        
         this.level = levels.toLevel('error');
         this.filter = undefined;
         this.category = undefined;
