@@ -33,7 +33,7 @@ class AppenderFilter {
 
     isEnableLevel(level) {
         if (this.level) {
-            return level.isLessThanOrEqualTo(this.level);
+            return level.isGreaterThanOrEqualTo(this.level);
         } else {
             return true;
         }
