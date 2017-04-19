@@ -65,8 +65,8 @@ class AppenderFilter {
     startFilter(config) {
         this.category = config.category;
 
-        if (this.filter) {
-            this.filter = new RegExp(this.filter);
+        if (config.filter) {
+            this.filter = new RegExp(config.filter);
         }
 
         this.level = config.level;
@@ -112,7 +112,7 @@ class AppenderFilter {
         this.enable = false;
 
         this.recoverLevel();
-        
+
         this.level = levels.toLevel('error');
         this.filter = undefined;
         this.category = undefined;
