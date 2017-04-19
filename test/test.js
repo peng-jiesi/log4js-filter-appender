@@ -11,22 +11,26 @@ log4js.configure({
         {type: 'file', filename: 'logs/test/test.log', category: 'test'}
     ]
 });
-let filterAppender = require('log4js-filter-appender');
+let filterAppender = require('../libs/log4js/FilterAppender');
 let appender = filterAppender.appender({type: 'file', filename: 'logs/test/filter-1.log'});
 log4js.addAppender(appender);
-const logger = log4js.getLogger('cheese');
-logger.setLevel('debug');
 
+log4js.setGlobalLogLevel('warn');
+
+const logger = log4js.getLogger('cheese');
 const logger2 = log4js.getLogger('test');
 logger2.setLevel('trace');
 
 setInterval(function () {
-    logger.trace('Entering cheese testing');
-    logger.debug('Got cheese.');
-    logger.info('Cheese is Gouda.');
-    logger.warn('Cheese is quite smelly.');
-    logger.error('Cheese is too ripe!');
+    logger.trace('Trace');
+    logger.debug('Debug');
+    logger.info('Info');
+    logger.error('Error');
+    logger.warn('Warn');
+
+
     logger2.trace('test %s', new Date());
 }, 10000);
+
 
 
